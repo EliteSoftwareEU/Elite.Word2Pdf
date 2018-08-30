@@ -31,6 +31,7 @@ namespace Elite.Word2Pdf
             {
                 foreach(string wordDocumentPath in args[0].WordFiles())
                 {
+                    if (wordDocumentPath.EndsWith("#")) continue;
                     Convert(wordDocumentPath);
                 }
             }
@@ -38,6 +39,7 @@ namespace Elite.Word2Pdf
 
         private static void Convert(string arguments)
         {
+            if (!arguments.Contains("--convert"))  arguments = string.Format(SOFFICE_ARGS, arguments);
             ProcessStartInfo procStartInfo = new ProcessStartInfo(GetLibreOfficePath(), arguments);
             procStartInfo.RedirectStandardOutput = true;
             procStartInfo.UseShellExecute = false;
